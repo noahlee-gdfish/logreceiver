@@ -4,9 +4,8 @@ import threading
 import RPi.GPIO as GPIO
 import spidev
 import time
+import conf_parser
 
-DEFAULT_HOST = "192.168.219.117"
-DEFAULT_PORT = 9090
 BUF_SIZE = 1024
 
 condition=threading.Condition()
@@ -57,5 +56,14 @@ def main(argc, argv):
     print("socket closed")
     sock.close()
 
+def get_config():
+    config = conf_parser.get_config("LOGRECEIVER")
+
+    global DEFAULT_HOST, DEFAULT_PORT
+    DEFAULT_HOST = config["host_addr"]
+    DEFAULT_PORT = int(config["host_port_num"])
+
 if __name__ == '__main__':
+    get_config()
+
     main(len(sys.argv), sys.argv)
