@@ -34,6 +34,9 @@ def main(argc, argv):
     sock.connect((DEFAULT_HOST, DEFAULT_PORT))
     print("Connect to server")
 
+    # LOG mask (4bit hex [0 to f])
+    # BIT(0) : CameraServer
+    # BIT(1) : BLEServer
     if argc <= 1:
         mode = "f"
     else:
